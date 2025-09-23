@@ -96,9 +96,27 @@ function onFormSubmit(e) {
   };
   
   for (var celula in mapaTonners) {
-    var valor = mapaTonners[celula];
-    if (valor !== null && valor !== "") {
-      relatorio.getRange(celula).setValue(valor);
-    }
+    var valorDig = mapaTonners[celula];
+    if (valorDig !== null && valorDig !== "") {
+      var range = relatorio.getRange(celula);
+      var valorAtual = Number(range.getValue());
+      var novoValor;
+
+      valorAtual = Number(valorAtual);
+
+      if (typeof valorDig === 'string' && (valorDig.startsWith('+') || valorDig.startsWith('-'))) {
+        var operador = valorDig.substring(0,1);
+        var num = Number(valorDig.substring(1));
+
+        if (operador === '+') {
+          novoValor = valorAtual + num; 
+        } else {
+          novoValor = valorAtual - num;
+        }
+      } else {
+        novoValor = Number(valorDig);
+      }
+      range.setValue(novoValor);
   }
+}
 }
