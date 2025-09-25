@@ -104,11 +104,16 @@ function onFormSubmit(e) {
 
       valorAtual = Number(valorAtual);
 
-      if (typeof valorDig === 'string' && (valorDig.startsWith('+') || valorDig.startsWith('-'))) {
-        var operador = valorDig.substring(0,1);
-        var num = Number(valorDig.substring(1));
+      if (valorDig !== null && valorDig !== "") {
+      var range = relatorio.getRange(celula);
+      var valorAtual = Number(range.getValue()) || 0;
+      var novoValor;
+      var valorDigStr = String(valorDig);
 
-        if (operador === '+') {
+      if ((valorDigStr.startsWith('+') || valorDigStr.startsWith('-'))) {
+        var num = Number(valorDigStr.substring(1));
+
+        if (valorDigStr.startsWith('+')) {
           novoValor = valorAtual + num; 
         } else {
           novoValor = valorAtual - num;
@@ -120,3 +125,4 @@ function onFormSubmit(e) {
   }
 }
 }
+
